@@ -1,7 +1,7 @@
 package com.emazon.supply.configuration.jwt;
 
-import com.emazon.stock.domain.model.RoleEnum;
-import com.emazon.stock.utils.Constants;
+import com.emazon.supply.domain.model.RoleEnum;
+import com.emazon.supply.utils.Constants;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
