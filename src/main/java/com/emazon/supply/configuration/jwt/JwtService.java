@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -26,5 +27,14 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public <T> T getClaim(String token, Function<Claims, T> claimsResolver){
+        final Claims claims = getClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+
+    public String getEmailFromToken(String token) {
+        return getClaim(token, Claims::getSubject);
     }
 }
