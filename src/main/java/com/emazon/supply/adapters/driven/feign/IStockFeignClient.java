@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigInteger;
-import java.net.ConnectException;
 
 @FeignClient(name = "emazon-stock", url = "http://localhost:8082/article")
 public interface IStockFeignClient {

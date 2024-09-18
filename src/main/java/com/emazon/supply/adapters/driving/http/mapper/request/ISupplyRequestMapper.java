@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ISupplyRequestMapper {
 
+    @Mapping(target = "deliveryDate", ignore = true)
     Supply toSupply(SupplyRequest supplyRequest);
 
 }

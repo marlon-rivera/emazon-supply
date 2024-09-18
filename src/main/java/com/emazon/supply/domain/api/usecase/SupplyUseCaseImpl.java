@@ -8,6 +8,7 @@ import com.emazon.supply.domain.spi.ISupplyPersistencePort;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 public class SupplyUseCaseImpl implements ISupplyServicePort {
@@ -19,9 +20,15 @@ public class SupplyUseCaseImpl implements ISupplyServicePort {
     public void saveSupply(Supply supply) {
         String username = authenticationPort.getCurrentUsername();
         supply.setIdResponsible(username);
+        supply.setDeliveryDate(LocalDate.now());
         if(supply.getQuantity().equals(BigInteger.ZERO)){
             throw new SupplyQuantityNotBeZeroException();
         }
         persistencePort.saveSupply(supply);
+    }
+
+    @Override
+    public LocalDate getLastDateOfDeliveryOfArticle(Long idArticle) {
+        return persistencePort.getLastDateOfDeliveryOfArticle(idArticle);
     }
 }

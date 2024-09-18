@@ -7,6 +7,9 @@ import com.emazon.supply.domain.model.Supply;
 import com.emazon.supply.domain.spi.ISupplyPersistencePort;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class SupplyAdapter implements ISupplyPersistencePort {
 
@@ -18,5 +21,11 @@ public class SupplyAdapter implements ISupplyPersistencePort {
     public void saveSupply(Supply supply) {
         stockFeignClient.increaseStock(supply.getIdArticle(), supply.getQuantity());
         supplyRepository.save(supplyEntityMapper.toSupplyEntity(supply));
+    }
+
+    @Override
+    public LocalDate getLastDateOfDeliveryOfArticle(Long idArticle) {
+        Optional<LocalDate> localDateOptional = supplyRepository.findLastDeliveryDateByArticleId(idArticle);
+        return localDateOptional.orElse(null);
     }
 }

@@ -13,7 +13,10 @@ import org.mockito.MockitoAnnotations;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 class SupplyAdapterTest {
@@ -48,5 +51,28 @@ class SupplyAdapterTest {
 
         verify(stockFeignClient).increaseStock(supply.getIdArticle(), supply.getQuantity());
         verify(supplyRepository).save(any());
+    }
+
+    @Test
+    void getLastDateOfDeliveryOfArticle_ShouldReturnDate_WhenArticleExists() {
+        Long idArticle = 1L;
+        LocalDate expectedDate = LocalDate.of(2024, 9, 15);
+
+        when(supplyRepository.findLastDeliveryDateByArticleId(idArticle)).thenReturn(Optional.of(expectedDate));
+
+        LocalDate actualDate = supplyAdapter.getLastDateOfDeliveryOfArticle(idArticle);
+
+        assertEquals(expectedDate, actualDate);
+    }
+
+    @Test
+    void getLastDateOfDeliveryOfArticle_ShouldReturnNull_WhenArticleDoesNotExist() {
+        Long idArticle = 999L;
+
+        when(supplyRepository.findLastDeliveryDateByArticleId(idArticle)).thenReturn(Optional.empty());
+
+        LocalDate actualDate = supplyAdapter.getLastDateOfDeliveryOfArticle(idArticle);
+
+        assertNull(actualDate);
     }
 }

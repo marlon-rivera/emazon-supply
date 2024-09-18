@@ -9,12 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.cglib.core.Local;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SupplyUseCaseImplTest {
@@ -55,5 +54,28 @@ class SupplyUseCaseImplTest {
         assertThrows(SupplyQuantityNotBeZeroException.class, () -> supplyUseCase.saveSupply(supply));
 
         verify(persistencePort, never()).saveSupply(any());
+    }
+
+    @Test
+    void getLastDateOfDeliveryOfArticle_ShouldReturnDate_WhenArticleExists() {
+        Long idArticle = 1L;
+        LocalDate expectedDate = LocalDate.of(2024, 9, 15);
+
+        when(persistencePort.getLastDateOfDeliveryOfArticle(idArticle)).thenReturn(expectedDate);
+
+        LocalDate actualDate = supplyUseCase.getLastDateOfDeliveryOfArticle(idArticle);
+
+        assertEquals(expectedDate, actualDate);
+    }
+
+    @Test
+    void getLastDateOfDeliveryOfArticle_ShouldReturnNull_WhenArticleDoesNotExist() {
+        Long idArticle = 999L;
+
+        when(persistencePort.getLastDateOfDeliveryOfArticle(idArticle)).thenReturn(null);
+
+        LocalDate actualDate = supplyUseCase.getLastDateOfDeliveryOfArticle(idArticle);
+
+        assertNull(actualDate);
     }
 }

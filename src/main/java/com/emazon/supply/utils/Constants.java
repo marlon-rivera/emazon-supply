@@ -10,11 +10,8 @@ public class Constants {
     public static final String ROLE = "ROLE";
 
     public static final String EXCEPTION_SUPPLY_ID_ARTICLE_BLANK = "El id del articulo no puede estar vacio.";
-    public static final String EXCEPTION_SUPPLY_DELIVERY_DATE_BLANK = "La fecha de suministro del articulo no puede estar vacia.";
     public static final String EXCEPTION_SUPPLY_QUANTITY_BLANK = "La cantidad del suministro del articulo no puede estar vacio.";
     public static final String EXCEPTION_SUPPLY_ARTICLE_NOT_FOUND = "El articulo al que quiere aumentar el suministro no fue encontrado.";
     public static final String EXCEPTION_SUPPLY_SERVER_ERROR = "En este momento no se pueden guardar suministros.";
     public static final String EXCEPTION_SUPPLY_QUANTITY_ZERO = "La cantidad de suministro no puede ser 0.";
-    public static final String EXCEPTION_USER_NOT_RECOGNIZED = "El usuario no está reconocido. Verifique si el usuario existe y está registrado correctamente.";
-
 }
