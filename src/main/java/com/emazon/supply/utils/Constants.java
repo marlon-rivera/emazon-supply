@@ -8,6 +8,7 @@ public class Constants {
     public static final String HEADER_AUTH = "Authorization";
     public static final String ROLE_ = "ROLE_";
     public static final String ROLE = "ROLE";
+    public static final String EMAIL = "email";
 
     public static final String EXCEPTION_SUPPLY_ID_ARTICLE_BLANK = "El id del articulo no puede estar vacio.";
     public static final String EXCEPTION_SUPPLY_QUANTITY_BLANK = "La cantidad del suministro del articulo no puede estar vacio.";

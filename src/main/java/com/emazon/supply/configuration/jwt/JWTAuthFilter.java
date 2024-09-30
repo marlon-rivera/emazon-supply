@@ -37,10 +37,10 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                 String username = claims.getSubject();
                 String roleStr = claims.get(Constants.ROLE, String.class);
                 RoleEnum role = RoleEnum.valueOf(roleStr);
-
+                String email = claims.get(Constants.EMAIL, String.class);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         username, null, List.of(new SimpleGrantedAuthority(Constants.ROLE_ +  role.name())));
-
+                authentication.setDetails(email);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }

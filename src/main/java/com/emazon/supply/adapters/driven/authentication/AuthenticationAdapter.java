@@ -14,4 +14,13 @@ public class AuthenticationAdapter implements IAuthenticationPort {
             return null;
         }
     }
+
+    @Override
+    public String getCurrentEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return (String) authentication.getDetails();
+        }
+        return null;
+    }
 }

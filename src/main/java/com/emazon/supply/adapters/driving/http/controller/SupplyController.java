@@ -1,5 +1,6 @@
 package com.emazon.supply.adapters.driving.http.controller;
 
+import com.emazon.supply.adapters.driving.http.dto.request.SaleRequest;
 import com.emazon.supply.adapters.driving.http.dto.request.SupplyRequest;
 import com.emazon.supply.adapters.driving.http.mapper.request.ISupplyRequestMapper;
 import com.emazon.supply.configuration.exceptionhandler.ExceptionResponse;
@@ -8,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +57,12 @@ public class SupplyController {
     @GetMapping("/last-delivery-date/{idArticle}")
     public ResponseEntity<LocalDate> getLastDeliveryDate(@PathVariable("idArticle") Long idArticle){
         return ResponseEntity.ok(supplyService.getLastDateOfDeliveryOfArticle(idArticle));
+    }
+
+    @PostMapping("/addSale")
+    public ResponseEntity<Void> saveSale(@RequestBody SaleRequest saleRequest){
+        supplyService.saveSale(saleRequest.getArticles(), saleRequest.getQuantities());
+        return ResponseEntity.ok().build();
     }
 
 }

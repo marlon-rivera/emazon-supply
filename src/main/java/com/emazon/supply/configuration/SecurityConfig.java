@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authRequest ->
                         authRequest
+                                .requestMatchers(HttpMethod.POST, "/supply/addSale").hasRole(RoleEnum.USER.name())
                                 .requestMatchers(HttpMethod.POST, "/supply/**").hasRole(RoleEnum.WAREHOUSE_MANAGER.name())
                                 .anyRequest().authenticated()
                 )
